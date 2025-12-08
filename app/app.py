@@ -1,5 +1,5 @@
 from typing import Union
-from llm_service import LLMService
+from .services.llm_service import LLMService
 from fastapi import FastAPI
 from schemas import FormRequest
 
