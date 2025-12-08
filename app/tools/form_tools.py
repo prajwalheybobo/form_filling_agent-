@@ -69,7 +69,6 @@
 #     )
 #     return response.json()
 
-
 from qwen_agent.tools.base import BaseTool
 import requests
 
@@ -83,7 +82,11 @@ class ValidateSingleFieldTool(BaseTool):
     def call(self, session_id: str, field_name: str, field_value: str):
         response = requests.post(
             f"{NODE_URL}/form/transcribe/validate-field",
-            json={"sessionId": session_id, "fieldName": field_name, "fieldValue": field_value}
+            json={
+                "sessionId": session_id,
+                "fieldName": field_name,
+                "fieldValue": field_value
+            }
         )
         return response.json()
 
@@ -95,7 +98,10 @@ class ValidateFormTool(BaseTool):
     def call(self, session_id: str, data: dict):
         response = requests.post(
             f"{NODE_URL}/form/transcribe/validate-form",
-            json={"data": data, "sessionId": session_id}
+            json={
+                "data": data,
+                "sessionId": session_id
+            }
         )
         return response.json()
 
@@ -107,6 +113,9 @@ class SaveFormDataTool(BaseTool):
     def call(self, session_id: str, data: dict):
         response = requests.post(
             f"{NODE_URL}/form/transcribe/save-form",
-            json={"data": data, "sessionId": session_id}
+            json={
+                "data": data,
+                "sessionId": session_id
+            }
         )
         return response.json()
