@@ -197,7 +197,7 @@ from ..tools.form_tools import (
 )
         # tools/form_tools.py
 from ..db.mongo import MongoMemoryStore   # db/mongo.py
-from ..tools.llm_wrapper import VLLMWrapper
+from ..services.llm_wrapper import VLLMWrapper
 from ..schemas import FormRequest
 from fastapi.responses import StreamingResponse
 import config
