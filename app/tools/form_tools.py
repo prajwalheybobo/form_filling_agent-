@@ -1,4 +1,5 @@
-from qwen_agent.tools import register_tool
+#from qwen_agent.tools import register_tool
+from qwen_agent.tools import tool
 import requests
 
 NODE_URL = "http://151.243.146.133:3000/v1"   # your NestJS backend
