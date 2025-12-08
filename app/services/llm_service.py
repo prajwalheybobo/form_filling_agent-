@@ -190,7 +190,12 @@ from qwen_agent.agents import Agent
 from qwen_agent.memory import Memory
 from vllm import AsyncEngineArgs, AsyncLLMEngine
 
-from ..tools.form_tools import *          # tools/form_tools.py
+from ..tools.form_tools import (
+    ValidateSingleFieldTool,
+    ValidateFormTool,
+    SaveFormDataTool,
+)
+        # tools/form_tools.py
 from ..db.mongo import MongoMemoryStore   # db/mongo.py
 from ..tools.llm_wrapper import VLLMWrapper
 from ..schemas import FormRequest
@@ -312,9 +317,15 @@ class LLMService:
         self.llm = wrapped_llm
         self.agent = Agent(
             llm=self.llm,
-            system=SYSTEM_PROMPT,  # system prompt as plain string
+            system=SYSTEM_PROMPT,
             memory=Memory(store=MongoMemoryStore(session_id=session_id)),
+            tools=[
+                ValidateSingleFieldTool(),
+                ValidateFormTool(),
+                SaveFormDataTool(),
+            ],
         )
+
 
     def start_form_filling(self, form: FormRequest):
         """Starts interactive session with the user."""
