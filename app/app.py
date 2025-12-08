@@ -1,7 +1,7 @@
 from typing import Union
 from .services.llm_service import LLMService
 from fastapi import FastAPI
-from schemas import FormRequest
+from .schemas import FormRequest
 
 app = FastAPI()
 
