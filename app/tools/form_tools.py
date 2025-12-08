@@ -70,13 +70,13 @@
 #     return response.json()
 
 
-from qwen_agent.tools.base import Tool
+from qwen_agent.tools.base import BaseTool
 import requests
 
 NODE_URL = "http://151.243.146.133:3000/v1"   # your NestJS backend
 
 
-class ValidateSingleFieldTool(Tool):
+class ValidateSingleFieldTool(BaseTool):
     name = "validate_single_field"
     description = "Validates a single field with backend validation."
 
@@ -88,7 +88,7 @@ class ValidateSingleFieldTool(Tool):
         return response.json()
 
 
-class ValidateFormTool(Tool):
+class ValidateFormTool(BaseTool):
     name = "validate_form"
     description = "Validates the full form before saving."
 
@@ -100,7 +100,7 @@ class ValidateFormTool(Tool):
         return response.json()
 
 
-class SaveFormDataTool(Tool):
+class SaveFormDataTool(BaseTool):
     name = "save_form_data"
     description = "Saves validated form data to backend."
 
