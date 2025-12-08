@@ -355,7 +355,7 @@ from ..tools.form_tools import (
 )
 from ..db.mongo import MongoMemoryStore
 from ..schemas import FormRequest
-import config
+from ..config import QWEN_MODEL
 
 SYSTEM_PROMPT = """
 You are a Form-Filling Assistant.
@@ -414,7 +414,7 @@ GLOBAL RESTRICTIONS
 
 # Qwen-Agent will automatically route to DashScope or OpenAI depending on model name
 LLM_CONFIG = {
-    "model": config.QWEN_MODEL,
+    "model": QWEN_MODEL,
     "model_type": "qwen",
 }
 
