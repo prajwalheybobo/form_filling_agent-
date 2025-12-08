@@ -1,5 +1,6 @@
 #from qwen_agent.tools import register_tool
-from qwen_agent.tools import register_tools
+#from qwen_agent.tools import register_tools
+from qwen_agent.tools.base import Tool
 import requests
 
 NODE_URL = "http://151.243.146.133:3000/v1"   # your NestJS backend
@@ -12,7 +13,7 @@ NODE_URL = "http://151.243.146.133:3000/v1"   # your NestJS backend
 
 
 #@register_tool
-@register_tools
+@Tool
 def validate_single_field(session_id: str, field_name: str, field_value: str):
     """Validate a single field.
     Args:
@@ -31,7 +32,7 @@ def validate_single_field(session_id: str, field_name: str, field_value: str):
     return response.json()
 
 #@register_tool
-@register_tools
+@Tool
 def validate_form(session_id: str, data:dict):
     """Validates a form, before save it to backend this tool is called to validate the form data.
     if it is valid then it will be allowed to save otherwise the again the questions will be asked to user.
@@ -51,7 +52,7 @@ def validate_form(session_id: str, data:dict):
 
 
 #@register_tool
-@register_tools
+@Tool
 def save_form_data(session_id: str, data: dict):
     """Save form data to backend. but only if it is valid, else return validation error.
     Args:
