@@ -426,13 +426,14 @@ GLOBAL RESTRICTIONS
 """
 
 # LLM configuration for local AWQ model
-# Try to load with transformers, but may need compatible versions
-# If AWQ import fails, ensure transformers>=4.40.0,<4.45.0 and autoawq>=0.2.0 are installed
+# AWQ models require GPU and float16 dtype for proper operation
 LLM_CONFIG = {
     "model": QWEN_MODEL,
     "model_type": "transformers",  # For local models, use "transformers"
-    # Additional config for AWQ models if needed
     "trust_remote_code": True,
+    "device_map": "auto",  # Automatically place model on available GPU
+    "dtype": "float16",  # Required for AWQ models on GPU
+    "torch_dtype": "float16",  # Legacy parameter for compatibility
 }
 
 
