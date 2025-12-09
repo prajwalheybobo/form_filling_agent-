@@ -73,6 +73,6 @@ watchfiles==1.1.1
 websocket-client==1.9.0
 websockets==15.0.1
 yarl==1.22.0
-transformers>=4.40.0,<4.45.0
+transformers>=4.45.0
 autoawq==0.2.9
 
