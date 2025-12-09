@@ -421,10 +421,23 @@ LLM_CONFIG = {
 
 class LLMService:
     def __init__(self, session_id: str):
+        # Create memory store instance
+        memory_store = MongoMemoryStore(session_id=session_id)
+        
+        # Memory class may accept store as positional argument instead of keyword
+        # Try positional first, then fallback to setting attribute
+        try:
+            memory = Memory(memory_store)
+        except TypeError:
+            # If positional doesn't work, create Memory and set store as attribute
+            memory = Memory()
+            if hasattr(memory, 'store'):
+                memory.store = memory_store
+        
         self.agent = Agent(
             llm=LLM_CONFIG,
             system=SYSTEM_PROMPT,
-            memory=Memory(store=MongoMemoryStore(session_id=session_id)),
+            memory=memory,
             tools=[
                 ValidateSingleFieldTool(),
                 ValidateFormTool(),
