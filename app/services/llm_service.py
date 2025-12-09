@@ -436,7 +436,7 @@ class LLMService:
         
         self.agent = Assistant(
             llm=LLM_CONFIG,
-            system_prompt=SYSTEM_PROMPT,
+            system=SYSTEM_PROMPT,
             memory=memory,
             tools=[
                 ValidateSingleFieldTool(),
