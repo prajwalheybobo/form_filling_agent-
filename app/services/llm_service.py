@@ -478,14 +478,26 @@ class LLMService:
     def start_form_filling(self, form: FormRequest):
         print(f"🔵 Starting form: {form.form_key}, ID: {form.unique_id}")
 
-        agent_response = self.agent.run(
-            f"""Start filling the form. formKey={form.form_key}, uniqueId={form.unique_id}.
-            form_metadata={form.form_metadata}
-            form_description={form.form_description}
-            """
-        )
+        # Format message as a list of message dictionaries
+        messages = [
+            {
+                "role": "user",
+                "content": f"""Start filling the form. formKey={form.form_key}, uniqueId={form.unique_id}.
+                form_metadata={form.form_metadata}
+                form_description={form.form_description}
+                """
+            }
+        ]
+        agent_response = self.agent.run(messages)
         return agent_response
 
     def filling_up_form(self, user_query: str):
-        agent_response = self.agent.run(user_query)
+        # Format user query as a message dictionary
+        messages = [
+            {
+                "role": "user",
+                "content": user_query
+            }
+        ]
+        agent_response = self.agent.run(messages)
         return agent_response
