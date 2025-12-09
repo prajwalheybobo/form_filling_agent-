@@ -412,11 +412,14 @@ GLOBAL RESTRICTIONS
 - Output only a question / validation message / or final success message.
 """
 
-# LLM configuration for local model
-# Since QWEN_MODEL is a local path, use "transformers" model_type
+# LLM configuration for local AWQ model
+# Try to load with transformers, but may need compatible versions
+# If AWQ import fails, ensure transformers>=4.40.0,<4.45.0 and autoawq>=0.2.0 are installed
 LLM_CONFIG = {
     "model": QWEN_MODEL,
     "model_type": "transformers",  # For local models, use "transformers"
+    # Additional config for AWQ models if needed
+    "trust_remote_code": True,
 }
 
 
