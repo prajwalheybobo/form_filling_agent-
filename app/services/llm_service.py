@@ -345,7 +345,7 @@
 #         return agent_response
 
 
-from qwen_agent.agents import Agent
+from qwen_agent.agents import Assistant
 from qwen_agent.memory import Memory
 
 from ..tools.form_tools import (
@@ -434,9 +434,9 @@ class LLMService:
             if hasattr(memory, 'store'):
                 memory.store = memory_store
         
-        self.agent = Agent(
+        self.agent = Assistant(
             llm=LLM_CONFIG,
-            system=SYSTEM_PROMPT,
+            system_prompt=SYSTEM_PROMPT,
             memory=memory,
             tools=[
                 ValidateSingleFieldTool(),
