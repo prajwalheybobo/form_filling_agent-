@@ -434,16 +434,29 @@ class LLMService:
             if hasattr(memory, 'store'):
                 memory.store = memory_store
         
-        self.agent = Assistant(
-            llm=LLM_CONFIG,
-            system=SYSTEM_PROMPT,
-            memory=memory,
-            tools=[
+        # Initialize Assistant - check what parameters it actually accepts
+        # Start with just llm to see the base signature
+        self.agent = Assistant(llm=LLM_CONFIG)
+        
+        # Set memory if the agent supports it
+        if hasattr(self.agent, 'memory'):
+            self.agent.memory = memory
+        
+        # Set tools if the agent supports it
+        if hasattr(self.agent, 'tools'):
+            self.agent.tools = [
                 ValidateSingleFieldTool(),
                 ValidateFormTool(),
                 SaveFormDataTool(),
-            ],
-        )
+            ]
+        
+        # Set system prompt - try different attribute names
+        if hasattr(self.agent, 'system_prompt'):
+            self.agent.system_prompt = SYSTEM_PROMPT
+        elif hasattr(self.agent, 'system'):
+            self.agent.system = SYSTEM_PROMPT
+        elif hasattr(self.agent, 'set_system_prompt'):
+            self.agent.set_system_prompt(SYSTEM_PROMPT)
 
     def start_form_filling(self, form: FormRequest):
         print(f"🔵 Starting form: {form.form_key}, ID: {form.unique_id}")
