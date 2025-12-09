@@ -345,6 +345,19 @@
 #         return agent_response
 
 
+# Workaround for AWQ compatibility issue
+# Try to patch the missing PytorchGELUTanh import if needed
+try:
+    from transformers.activations import PytorchGELUTanh
+except ImportError:
+    # PytorchGELUTanh was removed in newer transformers versions
+    # Create a dummy class if awq tries to import it
+    import transformers.activations as activations_module
+    if not hasattr(activations_module, 'PytorchGELUTanh'):
+        # Use GELUActivation as fallback
+        from transformers.activations import GELUActivation
+        activations_module.PytorchGELUTanh = GELUActivation
+
 from qwen_agent.agents import Assistant
 from qwen_agent.memory import Memory
 

@@ -75,4 +75,5 @@ websockets==15.0.1
 yarl==1.22.0
 transformers>=4.45.0
 autoawq==0.2.9
+# Note: Uninstall 'awq' package if installed: pip uninstall awq
 
