@@ -412,10 +412,11 @@ GLOBAL RESTRICTIONS
 - Output only a question / validation message / or final success message.
 """
 
-# Qwen-Agent will automatically route to DashScope or OpenAI depending on model name
+# LLM configuration for local model
+# Since QWEN_MODEL is a local path, use "transformers" model_type
 LLM_CONFIG = {
     "model": QWEN_MODEL,
-    "model_type": "qwen",
+    "model_type": "transformers",  # For local models, use "transformers"
 }
 
 
